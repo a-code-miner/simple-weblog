@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url'
 
 import express from 'express'
 import dotenv from 'dotenv'
+import morgan from 'morgan'
 
 import router from './routes/index.js'
 
@@ -14,6 +15,11 @@ const __dirname = path.dirname(__filename)
 dotenv.config({ path: './configs/config.env' })
 
 const app = express()
+
+//* Logging
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'))
+}
 
 //* View Engine
 app.set('view engine', 'ejs')
