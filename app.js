@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url'
 import express from 'express'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
+import expressEjsLayouts from 'express-ejs-layouts'
 
 import connectDB from './configs/db.js'
 import router from './routes/index.js'
@@ -26,7 +27,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 //* View Engine
+app.use(expressEjsLayouts)
 app.set('view engine', 'ejs')
+app.set('layout', './layouts/mainLayout')
 app.set('views', 'views')
 
 //* Static Folder
