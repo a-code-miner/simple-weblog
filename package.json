@@ -1,0 +1,19 @@
+{
+	"name": "toplearn-weblog-project",
+	"version": "1.0.0",
+	"description": "Simple weblog",
+	"main": "app.js",
+	"scripts": {
+		"start": "node app.js",
+		"dev": "nodemon app.js"
+	},
+	"keywords": [],
+	"author": "Mortaza Akhlaqi",
+	"license": "MIT",
+	"type": "module",
+	"dependencies": {
+		"ejs": "^3.1.10",
+		"express": "^5.1.0",
+		"mongoose": "^8.16.4"
+	}
+}
