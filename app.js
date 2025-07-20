@@ -5,6 +5,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
 
+import connectDB from './configs/db.js'
 import router from './routes/index.js'
 
 // تبدیل import.meta.url به __dirname
@@ -13,6 +14,9 @@ const __dirname = path.dirname(__filename)
 
 //* Load Config
 dotenv.config({ path: './configs/config.env' })
+
+//* Database Connection
+connectDB()
 
 const app = express()
 
@@ -27,6 +31,11 @@ app.set('views', 'views')
 
 //* Static Folder
 app.use(express.static(path.join(__dirname, 'public')))
+// app.use(express.static(path.join(__dirname, 'node_modules', 'bootstrap-v4-rtl', 'dist')))
+// app.use(express.static(path.join(__dirname, 'node_modules', 'font-awesome')))
+// app.use(express.static(path.join(__dirname, process.env.BOOTSTRAP)))
+// app.use(express.static(path.join(__dirname, process.env.FONTAWESOME)))
+
 
 //* Routes
 app.use(router)
