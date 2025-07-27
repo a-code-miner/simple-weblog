@@ -7,7 +7,8 @@ import morgan from 'morgan'
 import expressEjsLayouts from 'express-ejs-layouts'
 
 import connectDB from './configs/db.js'
-import router from './routes/index.js'
+import blogRoutes from './routes/blog.js'
+import dashboardRoutes from './routes/dashboard.js'
 
 // تبدیل import.meta.url به __dirname
 const __filename = fileURLToPath(import.meta.url)
@@ -34,14 +35,10 @@ app.set('views', 'views')
 
 //* Static Folder
 app.use(express.static(path.join(__dirname, 'public')))
-// app.use(express.static(path.join(__dirname, 'node_modules', 'bootstrap-v4-rtl', 'dist')))
-// app.use(express.static(path.join(__dirname, 'node_modules', 'font-awesome')))
-// app.use(express.static(path.join(__dirname, process.env.BOOTSTRAP)))
-// app.use(express.static(path.join(__dirname, process.env.FONTAWESOME)))
-
 
 //* Routes
-app.use(router)
+app.use(blogRoutes)
+app.use('/dashboard', dashboardRoutes)
 
 const PORT = process.env.PORT || 5000
 
