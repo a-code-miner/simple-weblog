@@ -8,6 +8,7 @@ import expressEjsLayouts from 'express-ejs-layouts'
 
 import connectDB from './configs/db.js'
 import blogRoutes from './routes/blog.js'
+import userRoutes from './routes/users.js'
 import dashboardRoutes from './routes/dashboard.js'
 
 // تبدیل import.meta.url به __dirname
@@ -33,12 +34,20 @@ app.set('view engine', 'ejs')
 app.set('layout', './layouts/mainLayout')
 app.set('views', 'views')
 
+//* Body Parser
+app.use(express.urlencoded({ extended: false }))
+
 //* Static Folder
 app.use(express.static(path.join(__dirname, 'public')))
 
 //* Routes
-app.use(blogRoutes)
+app.use('/', blogRoutes)
+app.use('/users', userRoutes)
 app.use('/dashboard', dashboardRoutes)
+
+app.use((req, res, next) => {
+    res.status(404).render('404', { pageTitle: 'صفحه مورد نظر یافت نشد', path: '' })
+})
 
 const PORT = process.env.PORT || 5000
 
