@@ -30,13 +30,11 @@ router.post('/register', (req, res) => {
     validator
         .then((result) => {
             console.log(result)
-            res.send('Validation passed, proceed with registration logic')
+            res.redirect('/users/login')
         })
         .catch(err => {
             console.log(err.errors)
-            res.send({
-                errors: err.errors
-            })
+            res.render('register', { pageTitle: 'ثبت‌نام کاربر جدید', path: '/register', errors: err.errors, oldInput: req.body })
         })
 })
 
