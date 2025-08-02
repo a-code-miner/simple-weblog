@@ -38,19 +38,6 @@ router.post('/register', (req, res) => {
                 errors: err.errors
             })
         })
-
-    // did not work for me for some reason
-    // schema.validate(req.body)
-    //     .then((result) => {
-    //         console.log(result)
-    //         res.send('Validation passed, proceed with registration logic')
-    //     })
-    //     .catch((err) => {
-    //         console.log(err.errors)
-    //         res.send({
-    //             errors: err.errors
-    //         })
-    //     })
 })
 
 export default router
