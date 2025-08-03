@@ -2,15 +2,14 @@
     <h1 class="h3 mb-3 font-weight-normal">ثبت‌نام</h1>
     <%- include('includes/messages.ejs') %>
         <label for="inputFullname" class="sr-only">نام کامل</label>
-        <input name="fullname" id="inputFullname" class="form-control mb-2" placeholder="نام کامل" required autofocus>
+        <input name="fullname" id="inputFullname" class="form-control mb-2" placeholder="نام کامل" autofocus>
         <label for="inputEmail" class="sr-only">آدرس ایمیل</label>
-        <input name="email" type="email" id="inputEmail" class="form-control mb-2" placeholder="آدرس ایمیل" required>
+        <input name="email" type="email" id="inputEmail" class="form-control mb-2" placeholder="آدرس ایمیل">
         <label for="inputPassword" class="sr-only">کلمه عبور</label>
-        <input name="password" type="password" id="inputPassword" class="form-control mb-2" placeholder="کلمه عبور"
-            required>
+        <input name="password" type="password" id="inputPassword" class="form-control mb-2" placeholder="کلمه عبور">
         <label for="inputConfirmPassword" class="sr-only">تکرار کلمه عبور</label>
         <input name="confirmPassword" type="password" id="inputConfirmPassword" class="form-control"
-            placeholder="تکرار کلمه عبور" required>
+            placeholder="تکرار کلمه عبور">
         <div class="checkbox mb-3">
             <label>
                 <a href="/users/login">اکانت کاربری دارم.</a>
