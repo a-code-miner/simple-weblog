@@ -1,6 +1,8 @@
 import { Router } from "express";
 
-import User from "../models/User.js";
+import { login } from "../controllers/userController.js";
+import { register } from "../controllers/userController.js";
+import { createUser } from "../controllers/userController.js";
 
 const router = Router()
 
@@ -8,38 +10,14 @@ const router = Router()
 
 // @desc    Login Page
 // @route    GET /users/login
-router.get('/login', (req, res) => {
-    res.render('login', { pageTitle: 'صفحه لاگین', path: '/login' })
-})
+router.get('/login', login)
 
 // @desc    Register Page
 // @route    GET /users/register
-router.get('/register', (req, res) => {
-    res.render('register', { pageTitle: 'ثبت‌نام کاربر جدید', path: '/register' })
-})
+router.get('/register', register)
 
 // @desc    Handle User Registration
 // @route    POST /users/register
-router.post('/register', async (req, res) => {
-    try {
-        await User.validateUser(req.body);
-        // await User.create(req.body)
-        res.redirect('/users/login')
-    } catch (err) {
-        console.log(err)
-        const errors = []
-        err.inner.forEach(error => {
-            errors.push({
-                name: error.path,
-                message: error.message
-            })
-        })
-        return res.render('register', {
-            pageTitle: 'ثبت‌نام کاربر جدید',
-            path: '/register',
-            errors,
-        })
-    }
-})
+router.post('/register', createUser)
 
 export default router
