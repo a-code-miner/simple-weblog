@@ -3,7 +3,7 @@ import bcrypt, { hash } from "bcryptjs";
 import User from "../models/User.js";
 
 export const login = async (req, res) => {
-    res.render('login', { pageTitle: 'صفحه لاگین', path: '/login' })
+    res.render('login', { pageTitle: 'صفحه لاگین', path: '/login', message: req.flash('success_msg') })
 }
 
 export const register = async (req, res) => {
@@ -32,32 +32,8 @@ export const createUser = async (req, res) => {
 
         const hash = await bcrypt.hash(password, 10)
         await User.create({ fullname, email, password: hash })
+        req.flash('success_msg', 'ثبت‌نام موفقیت‌آمیز بود')
         res.redirect('/users/login')
-        // bcrypt.genSalt(10, (err, salt) => {
-        //     if (err) throw err
-        //     bcrypt.hash(password, salt, async (err, hash) => {
-        //         await User.create({
-        //             fullname,
-        //             email,
-        //             password: hash
-        //         })
-        //         res.redirect('/users/login')
-        //     })
-        // })
-
-        // const user = new User({
-        //     fullname,
-        //     email,
-        //     password
-        // })
-        // user.save()
-        //     .then((user) => {
-        //         console.log('User created successfully:', user);
-        //         res.redirect('/users/login')
-        //     })
-        //     .catch((err) => {
-        //         if (err) throw err
-        //     })
     } catch (err) {
         console.log(err)
         if (err.inner && Array.isArray(err.inner)) {

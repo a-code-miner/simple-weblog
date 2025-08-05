@@ -5,6 +5,8 @@ import express from 'express'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
 import expressEjsLayouts from 'express-ejs-layouts'
+import flash from 'connect-flash'
+import session from 'express-session'
 
 import connectDB from './configs/db.js'
 import blogRoutes from './routes/blog.js'
@@ -36,6 +38,17 @@ app.set('views', 'views')
 
 //* Body Parser
 app.use(express.urlencoded({ extended: false }))
+
+//* Session
+app.use(session({
+    secret: 'secret',
+    cookie: { maxAge: 60000 },
+    resave: false,
+    saveUninitialized: false,
+}))
+
+//* Flash
+app.use(flash()) // req.flash
 
 //* Static Folder
 app.use(express.static(path.join(__dirname, 'public')))
