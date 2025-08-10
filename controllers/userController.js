@@ -15,6 +15,16 @@ export const handleLogin = async (req, res, next) => {
     })(req, res, next)
 }
 
+export const logout = async (req, res) => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err)
+        }
+    })
+    req.flash('success_msg', 'شما با موفقیت خارج شدید')
+    res.redirect('/users/login')
+}
+
 export const register = async (req, res) => {
     res.render('register', { pageTitle: 'ثبت‌نام کاربر جدید', path: '/register' })
 }

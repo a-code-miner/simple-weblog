@@ -6,7 +6,7 @@ const router = new Router()
 // @desc    Dashboard Home Page
 // @route   GET /dashboard
 router.get('/', isAuthenticated, (req, res) => {
-    res.render('dashboard', { pageTitle: 'بخش مدیریت | داشبورد', path: '/dashboard', layout: './layouts/dashLayout' })
+    res.render('dashboard', { pageTitle: 'بخش مدیریت | داشبورد', path: '/dashboard', layout: './layouts/dashLayout', fullname: req.user.fullname })
 })
 
 export default router
