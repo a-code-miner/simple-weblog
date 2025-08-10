@@ -1,6 +1,7 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import debug from 'debug'
 import express from 'express'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
@@ -8,6 +9,8 @@ import expressEjsLayouts from 'express-ejs-layouts'
 import flash from 'connect-flash'
 import session from 'express-session'
 import passport from 'passport'
+import MongoStore from 'connect-mongo'
+import mongoose from 'mongoose'
 
 import connectDB from './configs/db.js'
 import blogRoutes from './routes/blog.js'
@@ -18,11 +21,15 @@ import dashboardRoutes from './routes/dashboard.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
+//* Debugging Setup
+const debugLog = debug('app:server')
+
 //* Load Config
 dotenv.config({ path: './configs/config.env' })
 
 //* Database Connection
 connectDB()
+debugLog('Connecting to MongoDB...')
 
 //* Passport Configuration
 import './configs/passport.js'
@@ -31,8 +38,10 @@ const app = express()
 
 //* Logging
 if (process.env.NODE_ENV === 'development') {
+    debugLog('Development Mode: Logging enabled')
     app.use(morgan('dev'))
 }
+
 
 //* View Engine
 app.use(expressEjsLayouts)
@@ -46,9 +55,12 @@ app.use(express.urlencoded({ extended: false }))
 //* Session
 app.use(session({
     secret: 'secret',
-    cookie: { maxAge: 60000 },
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        collectionName: 'sessions',
+    })
 }))
 
 //* Passport Middleware

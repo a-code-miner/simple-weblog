@@ -9,10 +9,20 @@ export const login = async (req, res) => {
 
 export const handleLogin = async (req, res, next) => {
     passport.authenticate('local', {
-        successRedirect: '/dashboard',
+        // successRedirect: '/dashboard',
         failureRedirect: '/users/login',
         failureFlash: true,
     })(req, res, next)
+}
+
+export const rememberMe = (req, res) => {
+    if (req.body.remember) {
+        req.session.cookie.originalMaxAge = 1000 * 60 * 60 * 24 * 30; // 30 days
+    } else {
+        req.session.cookie.expire = null
+    }
+
+    res.redirect('/dashboard')
 }
 
 export const logout = async (req, res) => {
@@ -20,9 +30,9 @@ export const logout = async (req, res) => {
         if (err) {
             return next(err)
         }
+        req.flash('success_msg', 'شما با موفقیت خارج شدید')
+        res.redirect('/users/login')
     })
-    req.flash('success_msg', 'شما با موفقیت خارج شدید')
-    res.redirect('/users/login')
 }
 
 export const register = async (req, res) => {
@@ -49,8 +59,8 @@ export const createUser = async (req, res) => {
             })
         }
 
-        const hash = await bcrypt.hash(password, 10)
-        await User.create({ fullname, email, password: hash })
+        // const hash = await bcrypt.hash(password, 10)
+        await User.create({ fullname, email, password})
         req.flash('success_msg', 'ثبت‌نام موفقیت‌آمیز بود')
         res.redirect('/users/login')
     } catch (err) {

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from 'bcryptjs'
 
 import schema from "./secure/userValidation.js";
 
@@ -31,6 +32,20 @@ const userSchema = new mongoose.Schema({
 userSchema.statics.validateUser = async function (body) {
     return await schema.validate(body, { abortEarly: false })
 }
+
+userSchema.pre('save', async function (next) {
+    let user = this
+    if (!user.isModified('password')) {
+        return next()
+    }
+    try {
+        const hash = await bcrypt.hash(user.password, 10)
+        user.password = hash
+        next()
+    } catch (error) {
+        next(error)
+    }
+})
 
 const User = mongoose.model('User', userSchema)
 
