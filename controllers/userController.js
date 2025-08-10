@@ -1,9 +1,18 @@
 import bcrypt, { hash } from "bcryptjs";
+import passport from "passport";
 
 import User from "../models/User.js";
 
 export const login = async (req, res) => {
-    res.render('login', { pageTitle: 'صفحه لاگین', path: '/login', message: req.flash('success_msg') })
+    res.render('login', { pageTitle: 'صفحه لاگین', path: '/login', message: req.flash('success_msg'), error: req.flash('error') })
+}
+
+export const handleLogin = async (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/dashboard',
+        failureRedirect: '/users/login',
+        failureFlash: true,
+    })(req, res, next)
 }
 
 export const register = async (req, res) => {

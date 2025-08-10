@@ -7,6 +7,7 @@ import morgan from 'morgan'
 import expressEjsLayouts from 'express-ejs-layouts'
 import flash from 'connect-flash'
 import session from 'express-session'
+import passport from 'passport'
 
 import connectDB from './configs/db.js'
 import blogRoutes from './routes/blog.js'
@@ -22,6 +23,9 @@ dotenv.config({ path: './configs/config.env' })
 
 //* Database Connection
 connectDB()
+
+//* Passport Configuration
+import './configs/passport.js'
 
 const app = express()
 
@@ -46,6 +50,10 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }))
+
+//* Passport Middleware
+app.use(passport.initialize())
+app.use(passport.session())
 
 //* Flash
 app.use(flash()) // req.flash

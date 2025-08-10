@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import { login } from "../controllers/userController.js";
+import { handleLogin } from "../controllers/userController.js";
 import { register } from "../controllers/userController.js";
 import { createUser } from "../controllers/userController.js";
 
@@ -11,6 +12,10 @@ const router = Router()
 // @desc    Login Page
 // @route    GET /users/login
 router.get('/login', login)
+
+// @desc    Login Handler
+// @route    POST /users/login
+router.post('/login', handleLogin)
 
 // @desc    Register Page
 // @route    GET /users/register
