@@ -11,11 +11,13 @@ import session from 'express-session'
 import passport from 'passport'
 import MongoStore from 'connect-mongo'
 import mongoose from 'mongoose'
+import winston from 'winston'
 
 import connectDB from './configs/db.js'
 import blogRoutes from './routes/blog.js'
 import userRoutes from './routes/users.js'
 import dashboardRoutes from './routes/dashboard.js'
+import logger from './configs/winston.js'
 
 // تبدیل import.meta.url به __dirname
 const __filename = fileURLToPath(import.meta.url)
@@ -39,7 +41,7 @@ const app = express()
 //* Logging
 if (process.env.NODE_ENV === 'development') {
     debugLog('Development Mode: Logging enabled')
-    app.use(morgan('dev'))
+    app.use(morgan('combined', {stream: logger.stream}))
 }
 
 

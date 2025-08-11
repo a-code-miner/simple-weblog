@@ -12,6 +12,7 @@
 	"license": "MIT",
 	"type": "module",
 	"dependencies": {
+		"app-root-path": "^3.1.0",
 		"bcryptjs": "^3.0.2",
 		"connect-flash": "^0.1.1",
 		"connect-mongo": "^5.1.0",
@@ -25,6 +26,7 @@
 		"morgan": "^1.10.1",
 		"passport": "^0.7.0",
 		"passport-local": "^1.0.0",
+		"winston": "^3.17.0",
 		"yup": "^1.7.0"
 	},
 	"devDependencies": {
