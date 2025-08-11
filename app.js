@@ -10,8 +10,7 @@ import flash from 'connect-flash'
 import session from 'express-session'
 import passport from 'passport'
 import MongoStore from 'connect-mongo'
-import mongoose from 'mongoose'
-import winston from 'winston'
+import bodyParser from 'body-parser'
 
 import connectDB from './configs/db.js'
 import blogRoutes from './routes/blog.js'
@@ -52,7 +51,8 @@ app.set('layout', './layouts/mainLayout')
 app.set('views', 'views')
 
 //* Body Parser
-app.use(express.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 //* Session
 app.use(session({

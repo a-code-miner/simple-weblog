@@ -1,5 +1,6 @@
 import passport from "passport";
 
+
 import User from "../models/User.js";
 
 export const login = async (req, res) => {
@@ -15,10 +16,25 @@ export const handleLogin = async (req, res, next) => {
     const secretKey = process.env.RECAPTCHA_SECRET
     const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body['g-recaptcha-response']}&remoteip=${req.connection.remoteAddress}`
     console.log(req.connection.remoteAddress)
-    passport.authenticate('local', {
+    
+    const response = await fetch(verifyUrl, {
+        "method": "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded; charset: utf-8"
+        }
+    })
+    const json = await response.json()
+    console.log(json)
+    if (json.success) {
+passport.authenticate('local', {
         failureRedirect: '/users/login',
         failureFlash: true,
     })(req, res, next)
+    } else {
+        req.flash('error', 'خطا در اعتبارسنجی Recaptcha')
+        res.redirect('/users/login')
+    }
 }
 
 export const rememberMe = (req, res) => {
