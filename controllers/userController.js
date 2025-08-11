@@ -7,12 +7,12 @@ export const login = async (req, res) => {
 }
 
 export const handleLogin = async (req, res, next) => {
-    console.log(req.body['g-recapch-response'])
+    console.log(req.body['g-recaptcha-response'])
     if (!req.body['g-recaptcha-response']) {
         req.flash('error', 'اعتبارسنجی Recapcha الزامی می‌باشد!')
         return res.redirect('/users/login')
     }
-    const secretKey = process.env.RECAPCHA_SECRET
+    const secretKey = process.env.RECAPTCHA_SECRET
     const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body['g-recaptcha-response']}&remoteip=${req.connection.remoteAddress}`
     console.log(req.connection.remoteAddress)
     passport.authenticate('local', {
