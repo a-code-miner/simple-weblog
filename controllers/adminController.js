@@ -6,3 +6,12 @@ export const getDashboard = async (req, res) => {
         fullname: req.user.fullname,
     })
 }
+
+export const getAddPost = (req, res) => {
+    res.render('private/addPost', {
+        pageTitle: 'بخش مدیریت | ساخت پست جدید',
+        path: '/dashboard/add-post',
+        layout: './layouts/dashLayout',
+        fullname: req.user.fullname,
+    })
+}
