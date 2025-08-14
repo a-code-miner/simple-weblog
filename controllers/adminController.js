@@ -1,12 +1,19 @@
 import Blog from "../models/Blog.js"
 
 export const getDashboard = async (req, res) => {
-    res.render('private/blogs', {
-        pageTitle: 'بخش مدیریت | داشبورد',
-        path: '/dashboard',
-        layout: './layouts/dashLayout',
-        fullname: req.user.fullname,
-    })
+    try {
+        const blogs = await Blog.find({ user: req.user.id })
+        res.render('private/blogs', {
+            pageTitle: 'بخش مدیریت | داشبورد',
+            path: '/dashboard',
+            layout: './layouts/dashLayout',
+            fullname: req.user.fullname,
+            blogs,
+        })
+    } catch (err) {
+        console.log(err)
+    }
+
 }
 
 export const getAddPost = (req, res) => {
@@ -20,7 +27,7 @@ export const getAddPost = (req, res) => {
 
 export const createPost = async (req, res) => {
     try {
-        await Blog.create({...req.body, user: req.user.id})
+        await Blog.create({ ...req.body, user: req.user.id })
         res.redirect('/dashboard')
     } catch (err) {
         console.log(err)
