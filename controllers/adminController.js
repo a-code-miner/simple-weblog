@@ -1,3 +1,5 @@
+import Blog from "../models/Blog.js"
+
 export const getDashboard = async (req, res) => {
     res.render('private/blogs', {
         pageTitle: 'بخش مدیریت | داشبورد',
@@ -14,4 +16,13 @@ export const getAddPost = (req, res) => {
         layout: './layouts/dashLayout',
         fullname: req.user.fullname,
     })
+}
+
+export const createPost = async (req, res) => {
+    try {
+        await Blog.create({...req.body, user: req.user.id})
+        res.redirect('/dashboard')
+    } catch (err) {
+        console.log(err)
+    }
 }
