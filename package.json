@@ -24,6 +24,7 @@
 		"express-ejs-layouts": "^2.5.1",
 		"express-session": "^1.18.2",
 		"fetch-node": "^0.0.1",
+		"jalali-moment": "^3.3.11",
 		"mongoose": "^8.16.4",
 		"morgan": "^1.10.1",
 		"passport": "^0.7.0",

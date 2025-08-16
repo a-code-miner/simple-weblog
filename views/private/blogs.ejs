@@ -18,7 +18,7 @@
                             <td><%= blog._id %></td>
                             <td><a href="/blog/<%= blog._id %>"></a><%= blog.title %></td>
                             <td><%= blog.body %></td>
-                            <td><%= blog.createdAt %></td>
+                            <td><%= formatDate(blog.created_at) %></td>
                             <td><span class="badge <%= blog.status === 'عمومی' ? 'badge-success' : 'badge-info' %>"><%= blog.status %></span></td>
                             <td>تست</td>
                         </tr>

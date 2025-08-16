@@ -1,4 +1,5 @@
 import Blog from "../models/Blog.js"
+import { formatDate } from "../utils/jalali.js"
 
 export const getDashboard = async (req, res) => {
     try {
@@ -9,6 +10,7 @@ export const getDashboard = async (req, res) => {
             layout: './layouts/dashLayout',
             fullname: req.user.fullname,
             blogs,
+            formatDate,
         })
     } catch (err) {
         console.log(err)
