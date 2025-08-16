@@ -12,6 +12,9 @@
 
     <link href="/css/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/46.0.1/ckeditor5.umd.js"></script>
+
+
 </head>
 
 <body class="rtl">
@@ -31,15 +34,38 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <%- body %>
             </main>
+            <script>
+                const {
+	ClassicEditor,
+	Essentials,
+	Bold,
+	Italic,
+	Font,
+	Paragraph
+} = CKEDITOR;
+        ClassicEditor
+            .create( document.querySelector( '#editor' ), {
+                licenseKey: 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3ODY5MjQ3OTksImp0aSI6Ijc4MDRmYWEwLTY4ZDItNDY0My1iYjYyLWUwMjM4OGZlNjgwMSIsImxpY2Vuc2VkSG9zdHMiOlsiMTI3LjAuMC4xIiwibG9jYWxob3N0IiwiMTkyLjE2OC4qLioiLCIxMC4qLiouKiIsIjE3Mi4qLiouKiIsIioudGVzdCIsIioubG9jYWxob3N0IiwiKi5sb2NhbCJdLCJ1c2FnZUVuZHBvaW50IjoiaHR0cHM6Ly9wcm94eS1ldmVudC5ja2VkaXRvci5jb20iLCJkaXN0cmlidXRpb25DaGFubmVsIjpbImNsb3VkIiwiZHJ1cGFsIl0sImxpY2Vuc2VUeXBlIjoiZGV2ZWxvcG1lbnQiLCJmZWF0dXJlcyI6WyJEUlVQIiwiRTJQIiwiRTJXIiwiQk9YIl0sInZjIjoiMGUyN2QxNzEifQ.MMvzcuR1BEksBU1WCUBIq6Yfnw6fOOJPSm6yIZq-jOpqK5y_6DZ3Slm9Umy0-E2OcTriL657UK87CoJBNmmoVA',
+                language: 'fa',
+                toolbar: [
+                    'undo', 'redo', '|', 'bold', 'italic', '|',
+                    'fontSize', 'fontColor', 'fontBackgroundColor'
+                ]
+            })
+            .then( editor => {
+                console.log( 'Editor initialized', editor );
+            })
+            .catch( error => {
+                console.error( 'Oops! Something went wrong:', error );
+            });
 
-
-           
-
+</script>
 <!-- Bootstrap core JavaScript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/js/jqueryslim.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
